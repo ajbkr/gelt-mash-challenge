@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="fortune-telling game" />
+    <meta name="keywords" content="fortune" />
+
+    <link rel="stylesheet" href="https://unpkg.com/mvp.css"> 
+
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  </head>
+  <body x-data="app()">
+    <main>
+      <h1>MASH</h1>
+      <h2>Mansion, Apartment, Shack, or <s>House</s> Hotel</h2>
+
+      <hr />
+
+      <section>
+
+<!-- ----------------------------------------------------------------------- -->
+
+        <form>
+          <!--<aside>-->
+            <h3>Partners</h3>
+
+            <fieldset>
+              <label>
+                Who could you marry?
+                <input
+                  class="partners__input"
+                  type="text"
+                />
+              </label>
+              <button @click="addPartner">Add Partner</button>
+            </fieldset>
+
+            <template
+              x-show="partners.length"
+              x-for="partner in partners"
+              :key="partner.id"
+            >
+              <p x-text="partner.name" />
+            </template>
+            <div x-show="!partners.length">No partners. Please add some.</div>
+          <!--</aside>-->
+        </form>
+
+<!-- ----------------------------------------------------------------------- -->
+
+        <form>
+          <!--<aside>-->
+            <h3>Kids</h3>
+
+            <fieldset>
+              <label>
+                How many kids could you have? (0..100)
+                <input
+                  class="kids__input"
+                  max="100"
+                  min="0"
+                  type="number"
+                  value="0"
+                />
+              </label>
+              <button @click="addNumberOfKids">Add Number of Kids</button>
+            </fieldset>
+
+            <template
+              x-show="kids.length"
+              x-for="numberOfKids in kids"
+              :key="numberOfKids.id"
+            >
+              <p x-text="numberOfKids.count" />
+            </template>
+            <div x-show="!kids.length">No kids. Please add some.</div>
+          <!--</aside>-->
+        </form>
+
+<!-- ----------------------------------------------------------------------- -->
+
+        <form>
+          <!--<aside>-->
+            <h3>Jobs</h3>
+
+            <fieldset>
+              <label>
+                What job could you have?
+                <input
+                  class="jobs__input"
+                  type="text"
+                />
+              </label>
+              <button @click="addJob">Add Job</button>
+            </fieldset>
+
+            <template
+              x-show="jobs.length"
+              x-for="job in jobs"
+              :key="job.id"
+            >
+              <p x-text="job.title" />
+            </template>
+            <div x-show="!jobs.length">No jobs. Please add some.</div>
+          <!--</aside>-->
+        </form>
+
+<!-- ----------------------------------------------------------------------- -->
+
+        <form>
+          <!--<aside>-->
+            <h3>Salary</h3>
+
+            <fieldset>
+              <label>
+                What salary could you earn? (£0..1,000,000)
+                <input
+                  class="salaries__input"
+                  min="0"
+                  max="1000000"
+                  step="10000"
+                  type="number"
+                  value="0"
+                />
+              </label>
+              <button @click="addSalary">Add Salary</button>
+            </fieldset>
+
+            <template
+              x-show="salaries.length"
+              x-for="salary in salaries"
+              :key="salary.id"
+            >
+              <p x-text="salary.amount" />
+            </template>
+            <div x-show="!salaries.length">No salaries. Please add some.</div>
+          <!--</aside>-->
+        </form>
+
+<!-- ----------------------------------------------------------------------- -->
+
+        <form>
+          <!--<aside>-->
+            <h3>Cars</h3>
+
+            <fieldset>
+              <label>
+                What car could you drive?
+                <input
+                  class="cars__input"
+                  type="text"
+                />
+              </label>
+              <button @click="addCar">Add Car</button>
+            </fieldset>
+
+            <template
+              x-show="cars.length"
+              x-for="car in cars"
+              :key="car.id"
+            >
+              <p x-text="car.makeAndModel" />
+            </template>
+            <div x-show="!cars.length">No cars. Please add some.</div>
+          <!--</aside>-->
+        </form>
+
+<!-- ----------------------------------------------------------------------- -->
+
+        <form>
+          <!--<aside>-->
+            <h3>Places</h3>
+
+            <fieldset>
+              <label>
+                What place could you live in?
+                <input
+                  class="places__input"
+                  type="text"
+                />
+              </label>
+              <button @click="addPlace">Add Place</button>
+            </fieldset>
+
+            <template
+              x-show="places.length"
+              x-for="place in places"
+              :key="place.id"
+            >
+              <p x-text="place.name" />
+            </template>
+            <div x-show="!places.length">No places. Please add some.</div>
+          <!--</aside>-->
+        </form>
+
+<!-- ----------------------------------------------------------------------- -->
+
+      <section>
+    </main>
+
+    <script>
+const app = () => ({
+  KIDS_MAX: 100,
+  KIDS_MIN: 0,
+
+  partners: [],
+  kids: [],
+  jobs: [],
+  salaries: [],
+  cars: [],
+  places: [],
+
+  // TODO: a higher order function could be used to create many of the addXxx() functions
+
+  addPartner (event) {
+    // suppress submit event
+    event.preventDefault()
+
+    const value = this.$root.querySelector('.partners__input').value.trim()
+
+    if (value) {
+      // check name unique
+      const duplicateNames = this.partners.filter(({ name }) => name == value)
+      const isUnique = duplicateNames.length == 0
+
+      if (isUnique) {
+        const id = this.partners.length
+
+        this.partners = [
+          ...this.partners,
+
+          {
+            id,
+            name: value,
+            isActive: true
+          }
+        ]
+      }
+
+      // reset input field
+      this.$root.querySelector('.partners__input').value = ''
+    }
+  },
+
+  addNumberOfKids (event) {
+    // suppress submit event
+    event.preventDefault()
+
+    const { value } = this.$root.querySelector('.kids__input')
+
+    if (value) {
+      const count = parseInt(value, 10)
+
+      // check count unique and in range min..max
+      const duplicateCounts = this.kids.filter(({ count: numberOfKids }) => numberOfKids == count)
+      const isUnique = duplicateCounts.length == 0
+
+      const isInRange = count >= this.KIDS_MIN && count <= this.KIDS_MAX
+
+      if (isUnique && isInRange) {
+        const id = this.kids.length
+
+        this.kids = [
+          ...this.kids,
+
+          {
+            id,
+            count,
+            isActive: true
+          }
+        ]
+      }
+
+      // reset input field
+      this.$root.querySelector('.kids__input').value = '0'
+    }
+  },
+
+  addJob (event) {
+    // suppress submit event
+    event.preventDefault()
+
+    const { value } = this.$root.querySelector('.jobs__input')
+
+    if (value) {
+      const id = this.jobs.length
+
+      // TODO: check for duplicates
+
+      this.jobs = [
+        ...this.jobs,
+
+        {
+          id,
+          title: value,
+          isActive: true
+        }
+      ]
+
+      // reset input field
+      this.$root.querySelector('.jobs__input').value = ''
+    }
+  },
+
+  addSalary (event) {
+    // suppress submit event
+    event.preventDefault()
+
+    const { value } = this.$root.querySelector('.salaries__input')
+
+    if (value) {
+      const id = this.salaries.length
+
+      const amount = parseInt(value, 10)
+
+      // TODO: check for duplicates
+      // TODO: validate amount in range min..max
+
+      this.salaries = [
+        ...this.salaries,
+
+        {
+          id,
+          amount,
+          isActive: true
+        }
+      ]
+
+      // reset input field
+      this.$root.querySelector('.salaries__input').value = '0'
+    }
+  },
+
+  addCar (event) {
+    // suppress submit event
+    event.preventDefault()
+
+    const { value: makeAndModel } = this.$root.querySelector('.cars__input')
+
+    if (makeAndModel) {
+      const id = this.cars.length
+
+      // TODO: check for duplicates
+
+      this.cars = [
+        ...this.cars,
+
+        {
+          id,
+          makeAndModel,
+          isActive: true
+        }
+      ]
+
+      // reset input field
+      this.$root.querySelector('.cars__input').value = ''
+    }
+  },
+
+  addPlace (event) {
+    // suppress submit event
+    event.preventDefault()
+
+    const { value: name } = this.$root.querySelector('.places__input')
+
+    if (name) {
+      const id = this.places.length
+
+      // TODO: check for duplicates
+
+      this.places = [
+        ...this.places,
+
+        {
+          id,
+          name,
+          isActive: true
+        }
+      ]
+
+      // reset input field
+      this.$root.querySelector('.places__input').value = ''
+    }
+  }
+})
+    </script>
+  </body>
+</html>
