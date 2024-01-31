@@ -19,200 +19,224 @@
       <hr />
 
       <section>
-
-<!-- ----------------------------------------------------------------------- -->
-
         <form>
-          <!--<aside>-->
-            <h3>Partners</h3>
+          <h3>Partners</h3>
 
-            <fieldset>
-              <label>
-                Who could you marry?
-                <input
-                  class="partners__input"
-                  type="text"
-                />
-              </label>
-              <button @click="addPartner">Add Partner</button>
-            </fieldset>
+          <fieldset>
+            <label>
+              Who could you marry?
+              <input
+                class="partners__input"
+                type="text"
+              />
+            </label>
+            <button @click="addPartner">Add Partner</button>
+          </fieldset>
 
-            <template
-              x-show="partners.length"
-              x-for="partner in partners"
-              :key="partner.id"
-            >
-              <p x-text="partner.name" />
-            </template>
-            <div x-show="!partners.length">No partners. Please add some.</div>
-          <!--</aside>-->
+          <template
+            x-show="partners.length"
+            x-for="partner in partners"
+            :key="partner.id"
+          >
+            <p x-text="`${partner.id}: ${partner.name}`" />
+          </template>
+
+          <div x-show="!partners.length">No partners. Please add some.</div>
         </form>
 
-<!-- ----------------------------------------------------------------------- -->
 
         <form>
-          <!--<aside>-->
-            <h3>Kids</h3>
+          <h3>Kids</h3>
 
-            <fieldset>
-              <label>
-                How many kids could you have? (0..100)
-                <input
-                  class="kids__input"
-                  max="100"
-                  min="0"
-                  type="number"
-                  value="0"
-                />
-              </label>
-              <button @click="addNumberOfKids">Add Number of Kids</button>
-            </fieldset>
+          <fieldset>
+            <label>
+              <span x-text="`How many kids could you have? (${KIDS_MIN}..${KIDS_MAX})`"></span>
+              <input
+                class="kids__input"
+                :max="KIDS_MAX"
+                :min="KIDS_MIN"
+                type="number"
+                value="0"
+              />
+            </label>
+            <button @click="addNumberOfKids">Add Number of Kids</button>
+          </fieldset>
 
-            <template
-              x-show="kids.length"
-              x-for="numberOfKids in kids"
-              :key="numberOfKids.id"
-            >
-              <p x-text="numberOfKids.count" />
-            </template>
-            <div x-show="!kids.length">No kids. Please add some.</div>
-          <!--</aside>-->
+          <template
+            x-show="kids.length"
+            x-for="numberOfKids in kids"
+            :key="numberOfKids.id"
+          >
+            <p x-text="`${numberOfKids.id}: ${numberOfKids.count}`" />
+          </template>
+
+          <div x-show="!kids.length">No kids. Please add some.</div>
         </form>
 
-<!-- ----------------------------------------------------------------------- -->
 
         <form>
-          <!--<aside>-->
-            <h3>Jobs</h3>
+          <h3>Jobs</h3>
 
-            <fieldset>
-              <label>
-                What job could you have?
-                <input
-                  class="jobs__input"
-                  type="text"
-                />
-              </label>
-              <button @click="addJob">Add Job</button>
-            </fieldset>
+          <fieldset>
+            <label>
+              What job could you have?
+              <input
+                class="jobs__input"
+                type="text"
+              />
+            </label>
+            <button @click="addJob">Add Job</button>
+          </fieldset>
 
-            <template
-              x-show="jobs.length"
-              x-for="job in jobs"
-              :key="job.id"
-            >
-              <p x-text="job.title" />
-            </template>
-            <div x-show="!jobs.length">No jobs. Please add some.</div>
-          <!--</aside>-->
+          <template
+            x-show="jobs.length"
+            x-for="job in jobs"
+            :key="job.id"
+          >
+            <p x-text="`${job.id}: ${job.title}`" />
+          </template>
+
+          <div x-show="!jobs.length">No jobs. Please add some.</div>
         </form>
 
-<!-- ----------------------------------------------------------------------- -->
 
         <form>
-          <!--<aside>-->
-            <h3>Salary</h3>
+          <h3>Salary</h3>
 
-            <fieldset>
-              <label>
-                What salary could you earn? (£0..1,000,000)
-                <input
-                  class="salaries__input"
-                  min="0"
-                  max="1000000"
-                  step="10000"
-                  type="number"
-                  value="0"
-                />
-              </label>
-              <button @click="addSalary">Add Salary</button>
-            </fieldset>
+          <fieldset>
+            <label>
+              <span x-text="`What salary could you earn? (£${SALARY_MIN}..${SALARY_MAX})`"></span>
+              <input
+                class="salaries__input"
+                :max="SALARY_MAX"
+                :min="SALARY_MIN"
+                step="10000"
+                type="number"
+                value="0"
+              />
+            </label>
+            <button @click="addSalary">Add Salary</button>
+          </fieldset>
 
-            <template
-              x-show="salaries.length"
-              x-for="salary in salaries"
-              :key="salary.id"
-            >
-              <p x-text="salary.amount" />
-            </template>
-            <div x-show="!salaries.length">No salaries. Please add some.</div>
-          <!--</aside>-->
+          <template
+            x-show="salaries.length"
+            x-for="salary in salaries"
+            :key="salary.id"
+          >
+            <p x-text="`${salary.id}: ${salary.amount}`" />
+          </template>
+
+          <div x-show="!salaries.length">No salaries. Please add some.</div>
         </form>
 
-<!-- ----------------------------------------------------------------------- -->
 
         <form>
-          <!--<aside>-->
-            <h3>Cars</h3>
+          <h3>Cars</h3>
 
-            <fieldset>
-              <label>
-                What car could you drive?
-                <input
-                  class="cars__input"
-                  type="text"
-                />
-              </label>
-              <button @click="addCar">Add Car</button>
-            </fieldset>
+          <fieldset>
+            <label>
+              What car could you drive?
+              <input
+                class="cars__input"
+                type="text"
+              />
+            </label>
+            <button @click="addCar">Add Car</button>
+          </fieldset>
 
-            <template
-              x-show="cars.length"
-              x-for="car in cars"
-              :key="car.id"
-            >
-              <p x-text="car.makeAndModel" />
-            </template>
-            <div x-show="!cars.length">No cars. Please add some.</div>
-          <!--</aside>-->
+          <template
+            x-show="cars.length"
+            x-for="car in cars"
+            :key="car.id"
+          >
+            <p x-text="`${car.id}: ${car.makeAndModel}`" />
+          </template>
+
+          <div x-show="!cars.length">No cars. Please add some.</div>
         </form>
 
-<!-- ----------------------------------------------------------------------- -->
 
         <form>
-          <!--<aside>-->
-            <h3>Places</h3>
+          <h3>Places</h3>
 
-            <fieldset>
-              <label>
-                What place could you live in?
-                <input
-                  class="places__input"
-                  type="text"
-                />
-              </label>
-              <button @click="addPlace">Add Place</button>
-            </fieldset>
+          <fieldset>
+            <label>
+              What place could you live in?
+              <input
+                class="places__input"
+                type="text"
+              />
+            </label>
+            <button @click="addPlace">Add Place</button>
+          </fieldset>
 
-            <template
-              x-show="places.length"
-              x-for="place in places"
-              :key="place.id"
-            >
-              <p x-text="place.name" />
-            </template>
-            <div x-show="!places.length">No places. Please add some.</div>
-          <!--</aside>-->
+          <template
+            x-show="places.length"
+            x-for="place in places"
+            :key="place.id"
+          >
+            <p x-text="`${place.id}: ${place.name}`" />
+          </template>
+
+          <div x-show="!places.length">No places. Please add some.</div>
         </form>
-
-<!-- ----------------------------------------------------------------------- -->
+      <section>
 
       <section>
+        <form>
+          <h3>Selection</h3>
+
+          <template
+            x-show="activeItems().length > 0"
+            x-for="item in allItems()"
+            :key="item.id"
+          >
+            <p
+              x-show="item.isActive == true"
+              x-text="`${item.id}: ${item.value}`"
+            >
+            </p>
+            <p
+              x-show="item.isActive == false"
+              x-text="`${item.id}: ${item.value}`">
+              style="text-decoration: strikethrough"
+            </p>
+          </template>
+
+          <p x-text="`index: ${index}`"></p>
+          <button @click="eliminate" :disabled="activeItems().length == 0">Eliminate</button>
+        </form>
+      </section>
     </main>
 
     <script>
+const MAX_ITEMS_PER_CATEGORY = 10
+
 const app = () => ({
   KIDS_MAX: 100,
   KIDS_MIN: 0,
 
-  partners: [],
-  kids: [],
-  jobs: [],
-  salaries: [],
-  cars: [],
-  places: [],
+  SALARY_MAX: 1000000,  // a man can dream
+  SALARY_MIN: 0,
 
-  // TODO: a higher order function could be used to create many of the addXxx() functions
+  PARTNERS_OFFSET: MAX_ITEMS_PER_CATEGORY * 0,
+  KIDS_OFFSET:     MAX_ITEMS_PER_CATEGORY * 1,
+  JOBS_OFFSET:     MAX_ITEMS_PER_CATEGORY * 2,
+  SALARIES_OFFSET: MAX_ITEMS_PER_CATEGORY * 3,
+  CARS_OFFSET:     MAX_ITEMS_PER_CATEGORY * 4,
+  PLACES_OFFSET:   MAX_ITEMS_PER_CATEGORY * 5,
+
+  partners: [],
+  kids:     [],
+  jobs:     [],
+  salaries: [],
+  cars:     [],
+  places:   [],
+
+  index: 0,
+
+  // TODO: a higher order function or Factory could be used to create many of
+  // the addXxx() functions
 
   addPartner (event) {
     // suppress submit event
@@ -222,11 +246,14 @@ const app = () => ({
 
     if (value) {
       // check name unique
-      const duplicateNames = this.partners.filter(({ name }) => name == value)
-      const isUnique = duplicateNames.length == 0
+      const isUnique = this.partners.filter(
+        ({ name }) => name == value
+      ).length == 0
 
       if (isUnique) {
-        const id = this.partners.length
+        const id = this.PARTNERS_OFFSET + this.partners.length
+
+        // TODO: check max. items per category not exceeded
 
         this.partners = [
           ...this.partners,
@@ -254,13 +281,13 @@ const app = () => ({
       const count = parseInt(value, 10)
 
       // check count unique and in range min..max
-      const duplicateCounts = this.kids.filter(({ count: numberOfKids }) => numberOfKids == count)
-      const isUnique = duplicateCounts.length == 0
-
+      const isUnique = this.kids.filter(({ count: _count }) => _count == count).length == 0
       const isInRange = count >= this.KIDS_MIN && count <= this.KIDS_MAX
 
       if (isUnique && isInRange) {
-        const id = this.kids.length
+        const id = this.KIDS_OFFSET + this.kids.length
+
+        // TODO: check max. items per category not exceeded
 
         this.kids = [
           ...this.kids,
@@ -282,22 +309,27 @@ const app = () => ({
     // suppress submit event
     event.preventDefault()
 
-    const { value } = this.$root.querySelector('.jobs__input')
+    const value = this.$root.querySelector('.jobs__input').value.trim()
 
     if (value) {
-      const id = this.jobs.length
+      // check title unique
+      const isUnique = this.jobs.filter(({ title }) => title == value).length == 0
 
-      // TODO: check for duplicates
+      if (isUnique) {
+        const id = this.JOBS_OFFSET + this.jobs.length
 
-      this.jobs = [
-        ...this.jobs,
+        // TODO: check max. items per category not exceeded
 
-        {
-          id,
-          title: value,
-          isActive: true
-        }
-      ]
+        this.jobs = [
+          ...this.jobs,
+
+          {
+            id,
+            title: value,
+            isActive: true
+          }
+        ]
+      }
 
       // reset input field
       this.$root.querySelector('.jobs__input').value = ''
@@ -311,22 +343,29 @@ const app = () => ({
     const { value } = this.$root.querySelector('.salaries__input')
 
     if (value) {
-      const id = this.salaries.length
-
       const amount = parseInt(value, 10)
 
-      // TODO: check for duplicates
-      // TODO: validate amount in range min..max
+      // check amount unique and in range min..max
+      const isUnique = this.salaries.filter(
+        ({ amount: _amount }) => _amount == amount
+      ).length == 0
+      const isInRange = amount >= this.SALARY_MIN && amount <= this.SALARY_MAX
 
-      this.salaries = [
-        ...this.salaries,
+      if (isUnique && isInRange) {
+        const id = this.SALARIES_OFFSET + this.salaries.length
 
-        {
-          id,
-          amount,
-          isActive: true
-        }
-      ]
+        // TODO: check max. items per category not exceeded
+
+        this.salaries = [
+          ...this.salaries,
+
+          {
+            id,
+            amount,
+            isActive: true
+          }
+        ]
+      }
 
       // reset input field
       this.$root.querySelector('.salaries__input').value = '0'
@@ -337,22 +376,29 @@ const app = () => ({
     // suppress submit event
     event.preventDefault()
 
-    const { value: makeAndModel } = this.$root.querySelector('.cars__input')
+    const value = this.$root.querySelector('.cars__input').value.trim()
 
-    if (makeAndModel) {
-      const id = this.cars.length
+    if (value) {
+      // check makeAndModel unique
+      const isUnique = this.cars.filter(
+        ({ makeAndModel }) => makeAndModel == value
+      ).length == 0
 
-      // TODO: check for duplicates
+      if (isUnique) {
+        const id = this.CARS_OFFSET + this.cars.length
 
-      this.cars = [
-        ...this.cars,
+        // TODO: check max. items per category not exceeded
 
-        {
-          id,
-          makeAndModel,
-          isActive: true
-        }
-      ]
+        this.cars = [
+          ...this.cars,
+
+          {
+            id,
+            makeAndModel: value,
+            isActive: true
+          }
+        ]
+      }
 
       // reset input field
       this.$root.querySelector('.cars__input').value = ''
@@ -363,25 +409,138 @@ const app = () => ({
     // suppress submit event
     event.preventDefault()
 
-    const { value: name } = this.$root.querySelector('.places__input')
+    const value = this.$root.querySelector('.places__input').value.trim()
 
-    if (name) {
-      const id = this.places.length
+    if (value) {
+      // check name unique
+      const isUnique = this.places.filter(
+        ({ name }) => name == value
+      ).length == 0
 
-      // TODO: check for duplicates
+      if (isUnique) {
+        const id = this.PLACES_OFFSET + this.places.length
 
-      this.places = [
-        ...this.places,
+        // TODO: check max. items per category not exceeded
 
-        {
-          id,
-          name,
-          isActive: true
-        }
-      ]
+        this.places = [
+          ...this.places,
+
+          {
+            id,
+            name: value,
+            isActive: true
+          }
+        ]
+      }
 
       // reset input field
       this.$root.querySelector('.places__input').value = ''
+    }
+  },
+
+  activeItems () {
+    /*return [
+      ...this.partners.filter(({ isActive }) => isActive)
+        .map(({ id, name: value, isActive }) => ({ id, value, isActive })),
+
+      ...this.kids.filter(({ isActive }) => isActive)
+        .map(({ id, count: value, isActive }) => ({ id, value, isActive })),
+
+      ...this.jobs.filter(({ isActive }) => isActive)
+        .map(({ id, title: value, isActive }) => ({ id, value, isActive })),
+
+      ...this.salaries.filter(({ isActive }) => isActive)
+        .map(({ id, amount: value, isActive }) => ({ id, value, isActive })),
+
+      ...this.cars.filter(({ isActive }) => isActive)
+        .map(({ id, makeAndModel: value, isActive }) =>
+          ({ id, value, isActive })),
+
+      ...this.places.filter(({ isActive }) => isActive)
+        .map(({ id, name: value, isActive }) => ({ id, value, isActive }))
+    ]*/
+    return this.allItems().filter(item => item.isActive == true)
+  },
+
+  allItems () {
+    // TODO: sort items by id
+    return [
+      ...this.partners.map(({ id, name: value, isActive }) => ({ id, value, isActive })),
+      ...this.kids.map(({ id, count: value, isActive }) => ({ id, value, isActive })),
+      ...this.jobs,
+      ...this.salaries,
+      ...this.cars,
+      ...this.places
+    ]
+  },
+
+  eliminate (event) {
+    // suppress submit event
+    event.preventDefault()
+
+    const step = 3  // TODO: replace fixed step with variable
+
+    const items = this.activeItems()
+
+    if (this.index + step < this.allItems().length) {
+      this.index += step
+    } else {
+      this.index = this.index + step - this.allItems().length  // TODO: check calculation
+    }
+
+    const item = items[this.index]
+    const { id } = item
+
+    if (id >= this.PARTNERS_OFFSET && id < this.PARTNERS_OFFSET + MAX_ITEMS_PER_CATEGORY) {
+      // partners
+
+      console.log(JSON.stringify(this.partners))
+      this.partners = [
+        ...this.partners.filter(({ id: _id }) => _id != id),
+
+        ...this.partners.filter(({ id: _id }) => _id == id).map(partner => ({ ...partner, isActive: false }))
+      ]
+      console.log(JSON.stringify(this.partners))
+    } else if (id >= this.KIDS_OFFSET && id < this.KIDS_OFFSET + MAX_ITEMS_PER_CATEGORY) {
+      // kids
+
+      this.kids = [
+        ...this.kids.filter(({ id: _id }) => _id != id),
+
+        ...(this.kids.filter(({ id: _id }) => _id == id)).map(kid => ({ ...kid, isActive: false }))
+      ]
+    } else if (id >= this.JOBS_OFFSET && id < this.JOBS_OFFSET + MAX_ITEMS_PER_CATEGORY) {
+      // jobs
+
+      this.jobs = [
+        ...this.jobs.filter(({ id: _id }) => _id != id),
+
+        ...(this.jobs.filter(({ id: _id }) => _id == id)).map(job => ({ ...job, isActive: false }))
+      ]
+    } else if (id >= this.SALARIES_OFFSET && id < this.SALARIES_OFFSET + MAX_ITEMS_PER_CATEGORY) {
+      // salaries
+
+      this.salaries = [
+        ...this.salaries.filter(({ id: _id }) => _id != id),
+
+        ...(this.salaries.filter(({ id: _id }) => _id == id)).map(salary => ({ ...salary, isActive: false }))
+      ]
+    } else if (id >= this.CARS_OFFSET && id < this.CARS_OFFSET + MAX_ITEMS_PER_CATEGORY) {
+      // cars
+
+      this.cars = [
+        ...this.cars.filter(({ id: _id }) => _id != id),
+
+        ...(this.cars.filter(({ id: _id }) => _id == id)).map(car => ({ ...car, isActive: false }))
+      ]
+    } else if (id >= this.PLACES_OFFSET && id < this.PLACES_OFFSET + MAX_ITEMS_PER_CATEGORY) {
+      // places
+
+      this.places = [
+        ...this.places.filter(({ id: _id }) => _id != id),
+
+        ...(this.places.filter(({ id: _id }) => _id == id)).map(place => ({ ...place, isActive: false }))
+      ]
     }
   }
 })
